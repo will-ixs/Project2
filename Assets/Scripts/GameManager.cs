@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Vuforia;
 
 public class GameManager : MonoBehaviour
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject frog;
 
+    [SerializeField] private Button startButton;
+
     public enum State
     {
         StartScreen,
@@ -27,7 +31,7 @@ public class GameManager : MonoBehaviour
     }
     public State currentGameState;
 
-    private int platformCount;
+    public int platformCount;
     void Start()
     {
         currentGameState = State.StartScreen;
@@ -38,8 +42,10 @@ public class GameManager : MonoBehaviour
         switch (currentGameState)
         {
             case State.StartScreen:
-                currentGameState = State.PlacingStart;
-                StartGame();
+                //start button now does this:
+                //currentGameState = State.PlacingStart;
+                //StartGame(); 
+                startButton.enabled = true;
                 break;
             case State.PlacingStart:
                 //wait for start to be placed
@@ -79,6 +85,7 @@ public class GameManager : MonoBehaviour
     //planned to enable and disable whichever  game objects currently needed
     public void StartGame()
     {
+        startButton.enabled = false;
         currentGameState = State.PlacingStart;
         startAnchor.gameObject.SetActive(true);
         planeFinder.gameObject.SetActive(true);
