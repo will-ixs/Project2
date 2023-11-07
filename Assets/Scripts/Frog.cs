@@ -6,14 +6,23 @@ public class Frog : MonoBehaviour
 {
     [SerializeField] Transform target;
     [SerializeField] Projectile jumpArc;
-    [SerializeField] float jumpAngle = 45;
+    [SerializeField] float jumpAngle = 60;
 
     private float jumpSpeed;
 
+    public bool canJump;
 
+    private void Start()
+    {
+        canJump = false;        
+    }
     private void Update()
     {
         //Check
+        if (canJump)
+        {
+            //set angle to camera angle
+        }
     }
 
     public void SetTargetWithAngle(Vector3 point)
@@ -26,5 +35,21 @@ public class Frog : MonoBehaviour
         jumpSpeed = Math.LaunchSpeed(distance, yOffset, Physics.gravity.magnitude, jumpAngle * Mathf.Deg2Rad);
 
         jumpArc.UpdateArc(jumpSpeed, distance, Physics.gravity.magnitude, jumpAngle * Mathf.Deg2Rad, direction, true);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("MainCamera"))
+        {
+            canJump = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("MainCamera"))
+        {
+            canJump = false;
+        }
     }
 }
