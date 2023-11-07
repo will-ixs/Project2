@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public List<GameObject> platforms;
 
     [SerializeField] private GameObject frog;
+    [SerializeField] private Projectile projectile;
+    [SerializeField] private Transform jumpTarget;
+    [SerializeField] private Transform lastJump;
 
     [SerializeField] private Button startButton;
 
@@ -41,13 +44,16 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+        if(lives == 0)
+        {
+            GameOver();
+        }
         switch (currentGameState)
         {
             case State.StartScreen:
                 startButton.enabled = true;
                 break;
             case State.PlacingStart:
-                frog.transform.position = startAnchor.gameObject.transform.position;
                 break;
             case State.PlacingPlatforms:
                 if(platformCount > 4)
@@ -92,10 +98,12 @@ public class GameManager : MonoBehaviour
         startAnchor.gameObject.SetActive(true);
         planeFinder.gameObject.SetActive(true);
         pfContent.AnchorStage = startAnchor;
+        startButton.gameObject.SetActive(false);
     }
     public void StartPlaced()
     {
         frog.gameObject.SetActive(true);
+        frog.transform.position = startAnchor.gameObject.transform.position;
         planeFinder.gameObject.SetActive(false);
         currentGameState = State.PlacingPlatforms;
         midAirFinder.gameObject.SetActive(true);
@@ -104,7 +112,18 @@ public class GameManager : MonoBehaviour
     public void FinishPlaced()
     {
         currentGameState = State.Playing;
+        jumpTarget.gameObject.SetActive(true);
+        projectile.gameObject.SetActive(true);
+        lastJump.gameObject.SetActive(true);
+        
+        jumpTarget.transform.position = frog.transform.position;
+        lastJump.transform.position = frog.transform.position;
+
         planeFinder.gameObject.SetActive(false);
+    }
+    public void GameOver()
+    {
+        currentGameState = State.GameOver;
     }
 }
 
