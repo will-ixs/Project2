@@ -13,13 +13,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AnchorBehaviour endAnchor;
 
     [SerializeField] private MidAirPositionerBehaviour midAirFinder;
-    [SerializeField] private ContentPositioningBehaviour maContent;
-    [SerializeField] private AnchorBehaviour[] platforms;
+    [SerializeField] private MidAirPlacementManager midAirPlacementManager;
+    public List<GameObject> platforms;
 
     [SerializeField] private GameObject frog;
 
     [SerializeField] private Button startButton;
 
+    public int lives;
+    public int platformCount;
     public enum State
     {
         StartScreen,
@@ -31,9 +33,9 @@ public class GameManager : MonoBehaviour
     }
     public State currentGameState;
 
-    public int platformCount;
     void Start()
     {
+        lives = 7;
         currentGameState = State.StartScreen;
         platformCount = 0;
     }
@@ -42,21 +44,24 @@ public class GameManager : MonoBehaviour
         switch (currentGameState)
         {
             case State.StartScreen:
-                //start button now does this:
-                //currentGameState = State.PlacingStart;
-                //StartGame(); 
                 startButton.enabled = true;
                 break;
             case State.PlacingStart:
-                //wait for start to be placed
                 frog.transform.position = startAnchor.gameObject.transform.position;
                 break;
-            case State.PlacingFinish:
-                //wait for finish to be placed
-                break;
             case State.PlacingPlatforms:
-                //get touch, increase size like tutorial
-                //in touch end statement check platform count, if == 4, currentgamestate = playing
+                if(platformCount > 4)
+                {
+                    currentGameState = State.PlacingFinish;
+                    midAirFinder.gameObject.SetActive(false);
+                    endAnchor.gameObject.SetActive(true);
+                    planeFinder.gameObject.SetActive(true);
+                    midAirPlacementManager.gameObject.SetActive(false);
+                    pfContent.AnchorStage = endAnchor;
+                }
+                break;
+            case State.PlacingFinish:
+                //
                 break;
             case State.Playing:
                 //Frog.cs checks if state is playing and controls game and lives
@@ -76,9 +81,6 @@ public class GameManager : MonoBehaviour
             case State.PlacingFinish:
                 FinishPlaced();
                 break;
-            case State.PlacingPlatforms:
-                PlatformPlaced();
-                break;
         }
     }
 
@@ -93,17 +95,16 @@ public class GameManager : MonoBehaviour
     }
     public void StartPlaced()
     {
-        currentGameState = State.PlacingFinish;
-        endAnchor.gameObject.SetActive(true);
+        frog.gameObject.SetActive(true);
+        planeFinder.gameObject.SetActive(false);
+        currentGameState = State.PlacingPlatforms;
+        midAirFinder.gameObject.SetActive(true);
+        midAirPlacementManager.gameObject.SetActive(true);
     }
     public void FinishPlaced()
     {
-        currentGameState = State.PlacingPlatforms;
+        currentGameState = State.Playing;
         planeFinder.gameObject.SetActive(false);
-    }
-    public void PlatformPlaced()
-    {
-        platformCount++;
     }
 }
 
