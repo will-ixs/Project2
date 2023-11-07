@@ -7,8 +7,12 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameManager gameManager;
-    public TextMeshProUGUI gameOver;
-    public TextMeshProUGUI gameStateText;
+    [SerializeField] Frog frog;
+    private TextMeshProUGUI gameOver;
+    private TextMeshProUGUI gameStateText;
+    private Image heart;
+    private TextMeshProUGUI livesCounter; 
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +27,8 @@ public class UIManager : MonoBehaviour
         {
             //button is disabled in GameManager
             gameStateText.enabled = false;
+            heart.enabled = false;
+            livesCounter.enabled = false;
         }
         if (gameManager.currentGameState == GameManager.State.PlacingStart)
         {
@@ -40,11 +46,21 @@ public class UIManager : MonoBehaviour
         if (gameManager.currentGameState == GameManager.State.Playing)
         {
             gameStateText.text = "Jump on platforms!";
+            heart.enabled = true;
+            livesCounter.enabled = true;
         }
         if (gameManager.currentGameState == GameManager.State.GameOver)
         {
             gameStateText.enabled = false;
             gameOver.enabled = true;
+        }
+
+        //update lives counter
+        livesCounter.text = "" + gameManager.lives;
+
+        if (frog.canJump)
+        {
+
         }
     }
 }
