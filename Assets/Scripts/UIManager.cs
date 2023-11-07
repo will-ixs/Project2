@@ -6,18 +6,22 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public GameManager gameManager;
+    [SerializeField] public GameManager gameManager;
     [SerializeField] Frog frog;
-    private TextMeshProUGUI gameOver;
-    private TextMeshProUGUI gameStateText;
-    private Image heart;
-    private TextMeshProUGUI livesCounter; 
+    [SerializeField] private TextMeshProUGUI gameOver;
+    [SerializeField] private TextMeshProUGUI gameStateText;
+    [SerializeField] private Image heart;
+    [SerializeField] private TextMeshProUGUI livesCounter;
+    [SerializeField] private TextMeshProUGUI inRange;
+    [SerializeField] private Image charge;
+    [SerializeField] private Image chargeBar;
 
 
     // Start is called before the first frame update
     void Start()
     {
         gameOver.enabled = false;
+        charge.fillAmount = 0;
     }
 
     // Update is called once per frame
@@ -29,6 +33,8 @@ public class UIManager : MonoBehaviour
             gameStateText.enabled = false;
             heart.enabled = false;
             livesCounter.enabled = false;
+            inRange.enabled = false;
+            chargeBar.enabled = false;
         }
         if (gameManager.currentGameState == GameManager.State.PlacingStart)
         {
@@ -48,11 +54,14 @@ public class UIManager : MonoBehaviour
             gameStateText.text = "Jump on platforms!";
             heart.enabled = true;
             livesCounter.enabled = true;
+            inRange.enabled = true;
         }
         if (gameManager.currentGameState == GameManager.State.GameOver)
         {
             gameStateText.enabled = false;
             gameOver.enabled = true;
+            inRange.enabled = false;
+            chargeBar.enabled = false;
         }
 
         //update lives counter
@@ -60,7 +69,14 @@ public class UIManager : MonoBehaviour
 
         if (frog.canJump)
         {
-
+            inRange.text = "In range of frog";
+            chargeBar.enabled = true;
+            //charge.fillAmount = (float)distanceToTarget/15;
+        } 
+        else
+        {
+            inRange.text = "Not in range of frog. Input ignored.";
+            chargeBar.enabled = false;
         }
     }
 }
