@@ -15,12 +15,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI inRange;
     [SerializeField] private Image charge;
     [SerializeField] private Image chargeBar;
+    [SerializeField] private TextMeshProUGUI winText;
+    [SerializeField] private TextMeshProUGUI title;
+    [SerializeField] private EndGame endScript;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        title.enabled = true;
         gameOver.enabled = false;
+        winText.enabled = false;
         charge.fillAmount = 0;
         chargeBar.enabled = false;
         charge.enabled = false;
@@ -42,6 +47,7 @@ public class UIManager : MonoBehaviour
         if (gameManager.currentGameState == GameManager.State.PlacingStart)
         {
             gameStateText.enabled = true;
+            title.enabled = false;
             gameStateText.text = "Place Start Line";
         }
         if (gameManager.currentGameState == GameManager.State.PlacingFinish)
@@ -64,7 +70,15 @@ public class UIManager : MonoBehaviour
         if (gameManager.currentGameState == GameManager.State.GameOver)
         {
             gameStateText.enabled = false;
-            gameOver.enabled = true;
+            /*
+            if (endScript.win == true)
+            {
+                winText.enabled = true;
+            } else
+            {
+                gameOver.enabled = true;
+            }
+            */
             inRange.enabled = false;
             chargeBar.enabled = false;
         }
