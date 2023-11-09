@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
     {
         gameOver.enabled = false;
         charge.fillAmount = 0;
+        chargeBar.enabled = false;
+        charge.enabled = false;
     }
 
     // Update is called once per frame
@@ -35,6 +37,7 @@ public class UIManager : MonoBehaviour
             livesCounter.enabled = false;
             inRange.enabled = false;
             chargeBar.enabled = false;
+            charge.enabled = false;
         }
         if (gameManager.currentGameState == GameManager.State.PlacingStart)
         {
@@ -55,6 +58,8 @@ public class UIManager : MonoBehaviour
             heart.enabled = true;
             livesCounter.enabled = true;
             inRange.enabled = true;
+            chargeBar.enabled = true;
+            charge.enabled = true;
         }
         if (gameManager.currentGameState == GameManager.State.GameOver)
         {
