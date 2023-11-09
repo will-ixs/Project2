@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
         }
         if (gameManager.currentGameState == GameManager.State.PlacingPlatforms)
         {
-            gameStateText.text = "Place" + (5 - (gameManager.platformCount)) + "Platforms";
+            gameStateText.text = "Place " + (5 - (gameManager.platformCount)) + " Platforms";
         }
         if (gameManager.currentGameState == GameManager.State.Playing)
         {
@@ -74,9 +74,9 @@ public class UIManager : MonoBehaviour
 
         if (frog.canJump)
         {
-            inRange.text = "In range of frog";
+            inRange.text = frog.GetComponent<Rigidbody>().velocity.magnitude + "In range of frog";
             chargeBar.enabled = true;
-            //charge.fillAmount = (float)distanceToTarget/15;
+            charge.fillAmount = frog.distanceToTarget/15.0f;
         } 
         else
         {

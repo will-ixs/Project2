@@ -102,8 +102,11 @@ public class GameManager : MonoBehaviour
     }
     public void StartPlaced()
     {
+        jumpTarget.gameObject.SetActive(true);
+        projectile.gameObject.SetActive(true);
+        lastJump.gameObject.SetActive(true);
         frog.gameObject.SetActive(true);
-        frog.transform.position = startAnchor.gameObject.transform.position;
+        frog.transform.position = startAnchor.gameObject.transform.position + new Vector3(0.0f, 0.1f, 0.0f);
         planeFinder.gameObject.SetActive(false);
         currentGameState = State.PlacingPlatforms;
         midAirFinder.gameObject.SetActive(true);
@@ -111,15 +114,12 @@ public class GameManager : MonoBehaviour
     }
     public void FinishPlaced()
     {
-        currentGameState = State.Playing;
-        jumpTarget.gameObject.SetActive(true);
-        projectile.gameObject.SetActive(true);
-        lastJump.gameObject.SetActive(true);
-        
+
+        frog.GetComponent<Frog>().lowPoint = startAnchor.gameObject.transform.position.y - 10.0f;
         jumpTarget.transform.position = frog.transform.position;
         lastJump.transform.position = frog.transform.position;
-
         planeFinder.gameObject.SetActive(false);
+        currentGameState = State.Playing;
     }
     public void GameOver()
     {

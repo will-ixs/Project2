@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] int iterations = 20;
+    [SerializeField] private int iterations = 20;
+    [SerializeField] private Frog frog;
     private LineRenderer lineRenderer;
+    
 
     void Awake()
     {
@@ -25,6 +27,7 @@ public class Projectile : MonoBehaviour
         lineRenderer.positionCount = arcPoints.Length;
         lineRenderer.SetPositions(points3d);
 
+        transform.position = frog.transform.position;
         transform.rotation = Quaternion.LookRotation(direction);
     }
 
