@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour
             {
                 winText.enabled = true;
             }
-            else if (endScript.win == false || (gameManager.lives == 0))
+            else if (endScript.win == false && (gameManager.lives == 0))
             {
                 gameOver.enabled = true;
             }
@@ -92,7 +92,7 @@ public class UIManager : MonoBehaviour
         {
             inRange.text = "In range of frog";
             chargeBar.enabled = true;
-            charge.fillAmount = frog.distanceToTarget/5.0f;
+            charge.fillAmount = frog.distanceToTarget/15.0f;
         } 
         else
         {

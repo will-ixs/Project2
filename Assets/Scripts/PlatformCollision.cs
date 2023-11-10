@@ -13,6 +13,6 @@ public class PlatformCollision : MonoBehaviour
         other.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         GetComponent<MeshRenderer>().material = green;
         done = true;
-        lastJump.transform.position = transform.position + new Vector3(0.0f, 0.05f, 0.0f);
+        lastJump.position = transform.position + new Vector3(0.0f, 0.15f, 0.0f);
     }
 }

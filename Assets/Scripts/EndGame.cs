@@ -7,7 +7,6 @@ public class EndGame : MonoBehaviour
     [SerializeField] GameManager gm;
     [SerializeField] Transform lastjump;
     public bool win;
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Frog")

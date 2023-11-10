@@ -22,7 +22,7 @@ public class Frog : MonoBehaviour
     private void Start()
     {
         lowPoint = float.MaxValue;
-        distanceChange = 1.0f;
+        distanceChange = 0.125f;
         canJump = false;   
         rb = GetComponent<Rigidbody>();
     }
@@ -33,14 +33,14 @@ public class Frog : MonoBehaviour
         {
             SetTargetWithAngle(target.position);
             distanceToTarget = (target.position - transform.position).magnitude;
-            if (distanceToTarget > 5.0f || distanceToTarget <= 0.0f)
+            if (distanceToTarget > 15.0f || distanceToTarget <= 0.0f)
             {
                 distanceChange *= -1;
             }
 
             if (canJump && lowVelocity()) //camera in range
             {
-                transform.rotation = Quaternion.AngleAxis(cameraTransform.rotation.y, Vector3.up);
+                transform.forward = Vector3.Normalize(Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up));
                 Jump();
             }
 
@@ -78,11 +78,11 @@ public class Frog : MonoBehaviour
                     break;
 
                 case (TouchPhase.Moved): //move jump target forward up to a maximum distance
-                    target.position += (transform.forward * distanceChange * Time.deltaTime);
+                    target.position += (transform.forward * distanceChange);
                     break;
 
                 case (TouchPhase.Stationary):
-                    target.position += (transform.forward * distanceChange * Time.deltaTime);
+                    target.position += (transform.forward * distanceChange);
                     break;
 
                 case (TouchPhase.Ended): //construct vector at 60 degrees up facing forward, set vel to Math.LaunchSpeed along that vector
