@@ -81,6 +81,7 @@ public class UIManager : MonoBehaviour
             
             inRange.enabled = false;
             chargeBar.enabled = false;
+            charge.enabled = false;
         }
 
         //update lives counter
@@ -88,7 +89,7 @@ public class UIManager : MonoBehaviour
 
         if (frog.canJump)
         {
-            inRange.text = frog.GetComponent<Rigidbody>().velocity.magnitude + "In range of frog";
+            inRange.text = "In range of frog";
             chargeBar.enabled = true;
             charge.fillAmount = frog.distanceToTarget/15.0f;
         } 
