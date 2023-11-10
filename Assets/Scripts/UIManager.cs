@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
         if (gameManager.currentGameState == GameManager.State.GameOver)
         {
             gameStateText.enabled = false;
-            /*
+            
             if (endScript.win == true)
             {
                 winText.enabled = true;
@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
             {
                 gameOver.enabled = true;
             }
-            */
+            
             inRange.enabled = false;
             chargeBar.enabled = false;
         }

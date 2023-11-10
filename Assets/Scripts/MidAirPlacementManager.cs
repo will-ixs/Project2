@@ -8,6 +8,7 @@ public class MidAirPlacementManager : MonoBehaviour
 {
     [SerializeField] private GameObject myPrefab;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private Transform lastJump;
 
     private int nameCount = 0;
     private float scaleFactor = 0.005f;
@@ -56,6 +57,7 @@ public class MidAirPlacementManager : MonoBehaviour
         nameCount += 1;
 
         currentPlatform = ObjectToAnchor;
+        currentPlatform.GetComponent<PlatformCollision>().lastJump = lastJump;
         gameManager.platforms.Add(currentPlatform);
         gameManager.platformCount++;
     }

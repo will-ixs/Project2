@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlatformCollision : MonoBehaviour
 {
     [SerializeField] private Material green;
-    [SerializeField] private Transform lastJump;
+    public Transform lastJump;
     public bool done;
 
     private void OnTriggerEnter(Collider other)
@@ -13,6 +13,6 @@ public class PlatformCollision : MonoBehaviour
         other.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         GetComponent<MeshRenderer>().material = green;
         done = true;
-        lastJump.position = transform.position + new Vector3(0.0f, 0.25f, 0.0f);
+        lastJump.transform.position = transform.position + new Vector3(0.0f, 0.25f, 0.0f);
     }
 }

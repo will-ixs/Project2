@@ -46,17 +46,10 @@ public class Frog : MonoBehaviour
             if(transform.position.y < lowPoint)
             {
                 transform.position = lastJumpPosition.position;
+                rb.velocity = Vector3.zero;
                 gm.lives--;
             }
         }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        
     }
     public void SetTargetWithAngle(Vector3 point)
     { 

@@ -727,8 +727,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5de69590b026cd4a823f7afd564c211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 0}
-  lastjump: {fileID: 0}
+  gm: {fileID: 905994814}
+  lastjump: {fileID: 993783748}
+  win: 0
 --- !u!1 &251750095
 GameObject:
   m_ObjectHideFlags: 0
@@ -2375,7 +2376,7 @@ MonoBehaviour:
   chargeBar: {fileID: 322274142}
   winText: {fileID: 645462588}
   title: {fileID: 32493616}
-  endScript: {fileID: 0}
+  endScript: {fileID: 213050382}
 --- !u!1 &766489423
 GameObject:
   m_ObjectHideFlags: 0
@@ -3611,6 +3612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPrefab: {fileID: 3785102565675236035, guid: 3bd9dedb324b09849873ace4f626607f, type: 3}
   gameManager: {fileID: 905994814}
+  lastJump: {fileID: 993783748}
 --- !u!4 &1792020650
 Transform:
   m_ObjectHideFlags: 0
