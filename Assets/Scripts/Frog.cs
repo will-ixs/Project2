@@ -22,24 +22,25 @@ public class Frog : MonoBehaviour
     private void Start()
     {
         lowPoint = float.MaxValue;
-        distanceChange = 0.125f;
+        distanceChange = 1.0f;
         canJump = false;   
         rb = GetComponent<Rigidbody>();
     }
     private void Update()
     {
+
         if (gm.currentGameState == GameManager.State.Playing)
         {
             SetTargetWithAngle(target.position);
             distanceToTarget = (target.position - transform.position).magnitude;
-            if (distanceToTarget > 20.0f || distanceToTarget <= 0.0f)
+            if (distanceToTarget > 5.0f || distanceToTarget <= 0.0f)
             {
                 distanceChange *= -1;
             }
 
             if (canJump && lowVelocity()) //camera in range
             {
-                transform.rotation = Quaternion.Euler(0.0f, cameraTransform.rotation.y, 0.0f);
+                transform.rotation = Quaternion.AngleAxis(cameraTransform.rotation.y, Vector3.up);
                 Jump();
             }
 
@@ -72,19 +73,21 @@ public class Frog : MonoBehaviour
             switch (currentTouch.phase)
             {
                 case (TouchPhase.Began):
+                    jumpArc.gameObject.SetActive(true);
                     target.position = transform.position;
                     break;
 
                 case (TouchPhase.Moved): //move jump target forward up to a maximum distance
-                    target.position += (transform.forward * distanceChange);
+                    target.position += (transform.forward * distanceChange * Time.deltaTime);
                     break;
 
                 case (TouchPhase.Stationary):
-                    target.position += (transform.forward * distanceChange);
+                    target.position += (transform.forward * distanceChange * Time.deltaTime);
                     break;
 
                 case (TouchPhase.Ended): //construct vector at 60 degrees up facing forward, set vel to Math.LaunchSpeed along that vector
                     rb.velocity = direction.transform.forward * jumpSpeed;
+                    jumpArc.gameObject.SetActive(false);
                     break;
             }
         }

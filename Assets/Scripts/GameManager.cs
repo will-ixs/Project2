@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     {
         if(lives == 0)
         {
-            GameOver();
+            currentGameState = State.GameOver;
         }
         switch (currentGameState)
         {
@@ -103,7 +103,6 @@ public class GameManager : MonoBehaviour
     public void StartPlaced()
     {
         jumpTarget.gameObject.SetActive(true);
-        projectile.gameObject.SetActive(true);
         lastJump.gameObject.SetActive(true);
         frog.gameObject.SetActive(true);
         frog.transform.position = startAnchor.gameObject.transform.position + new Vector3(0.0f, 0.1f, 0.0f);
