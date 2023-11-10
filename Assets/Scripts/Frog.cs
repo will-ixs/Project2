@@ -73,6 +73,7 @@ public class Frog : MonoBehaviour
             switch (currentTouch.phase)
             {
                 case (TouchPhase.Began):
+                    distanceChange = 0.125f;
                     jumpArc.gameObject.SetActive(true);
                     target.position = transform.position;
                     break;
